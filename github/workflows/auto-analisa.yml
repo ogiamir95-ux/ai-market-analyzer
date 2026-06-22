@@ -1,0 +1,25 @@
+name: AI Market Analyzer Scheduled
+
+on:
+  schedule:
+    # Mengatur pemicu otomatis berjalan berkala (setiap ~15-30 menit)
+    - cron: '*/15 * * * *'
+  workflow_dispatch: # Agar muncul tombol manual untuk tes jalan saat ini juga
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ambil Kode dari Github
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Jalankan AI Analisa Market
+        run: node bot.js
